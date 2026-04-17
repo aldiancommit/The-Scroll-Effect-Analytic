@@ -1,0 +1,233 @@
+<div id="result" class="mb-16 animate-fade-in-up">
+  <div
+    class="glass-panel rounded-3xl overflow-hidden relative border border-slate-700/50 shadow-2xl"
+  >
+    {% set theme_color = "emerald" if prediction_result < 4 else ("amber" if
+    prediction_result < 7 else "rose") %} {% set text_accent =
+    "text-emerald-400" if prediction_result < 4 else ("text-amber-400" if
+    prediction_result < 7 else "text-rose-500") %} {% set border_accent =
+    "bg-emerald-500" if prediction_result < 4 else ("bg-amber-500" if
+    prediction_result < 7 else "bg-rose-600") %}
+
+    <div class="absolute top-0 left-0 w-full h-2 {{ border_accent }}"></div>
+
+    <div class="p-8 md:p-12">
+      <div class="text-center mb-12">
+        <span
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-800 border border-slate-700 text-slate-300 font-medium text-xs uppercase tracking-[0.2em] mb-6"
+        >
+          <span
+            class="w-2 h-2 rounded-full {{ border_accent }} animate-pulse"
+          ></span>
+          Sistem Analisis Neurologis
+        </span>
+        <div
+          class="text-[7rem] md:text-[8rem] font-black text-white leading-none tracking-tighter"
+        >
+          {{ prediction_result }}
+        </div>
+        <p
+          class="text-slate-500 font-medium mt-2 tracking-wide uppercase text-xs"
+        >
+          Indeks Skor Adiksi Digital
+        </p>
+        <h3
+          class="{{ text_accent }} font-bold text-2xl md:text-3xl mt-6 tracking-tight"
+        >
+          {% if prediction_result < 4 %} Optimal (Homeostasis Digital) {% elif
+          prediction_result < 7 %} Waspada (Toleransi Dopamin) {% else %} Kritis
+          (Hiperstimulasi Dopamin) {% endif %}
+        </h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          class="bg-slate-900/40 p-7 rounded-2xl border border-slate-800 flex flex-col h-full"
+        >
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-slate-800 {{ text_accent }}">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
+            </div>
+            <h4 class="text-white font-bold text-base tracking-wide">
+              Diagnosis Profil
+            </h4>
+          </div>
+          <p class="text-slate-400 text-[15px] leading-relaxed flex-grow">
+            {% if prediction_result < 4 %} Sistem *reward* otak Anda dalam
+            kondisi seimbang. Penggunaan platform
+            <span class="text-white font-semibold"
+              >{{ user_data.Most_Used_Platform }}</span
+            >
+            belum memicu ketergantungan patologis pada hormon dopamin. {% elif
+            prediction_result < 7 %} Terdeteksi adanya adaptasi
+            neuroplastisitas. Otak Anda mulai terbiasa dengan stimulasi konstan
+            dari
+            <span class="text-white font-semibold"
+              >{{ user_data.Most_Used_Platform }}</span
+            >, menurunkan sensitivitas reseptor kepuasan alami Anda. {% else %}
+            Terjadi pembajakan jalur saraf (*neural hijacking*). Durasi
+            <span class="text-white font-semibold"
+              >{{ user_data.Avg_Daily_Usage_Hours }} jam</span
+            >
+            telah memaksa otak bekerja dalam mode *high-arousal* terus-menerus,
+            melemahkan kontrol logika Anda. {% endif %}
+          </p>
+        </div>
+
+        <div
+          class="bg-slate-900/40 p-7 rounded-2xl border border-slate-800 flex flex-col h-full"
+        >
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-slate-800 {{ text_accent }}">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+            <h4 class="text-white font-bold text-base tracking-wide">
+              Analisis Data
+            </h4>
+          </div>
+          <p class="text-slate-400 text-[15px] leading-relaxed flex-grow">
+            Berdasarkan algoritma *Random Forest*:
+            <br /><br />
+            {% if user_data.Conflicts_Over_Social_Media|int > 3 %}
+            <span class="text-rose-400">●</span> Tingkat konflik
+            <span class="text-white font-medium"
+              >{{ user_data.Conflicts_Over_Social_Media }}/5</span
+            >
+            menandakan stres kronis pada hormon Kortisol Anda. {% else %}
+            <span class="text-emerald-400">●</span> Stabilitas sosial terjaga
+            dengan tingkat konflik yang rendah. {% endif %}
+            <br />
+            {% if user_data.Sleep_Hours_Per_Night|float < 6 %}
+            <span class="text-rose-400">●</span> Tidur
+            <span class="text-white font-medium"
+              >{{ user_data.Sleep_Hours_Per_Night }} jam</span
+            >
+            menghambat pembersihan racun metabolik di otak Anda. {% else %}
+            <span class="text-emerald-400">●</span> Istirahat
+            <span class="text-white font-medium"
+              >{{ user_data.Sleep_Hours_Per_Night }} jam</span
+            >
+            mendukung pemulihan sinaptik yang baik. {% endif %}
+          </p>
+        </div>
+
+        <div
+          class="bg-slate-900/40 p-7 rounded-2xl border border-slate-800 flex flex-col h-full"
+        >
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-slate-800 {{ text_accent }}">
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+            </div>
+            <h4 class="text-white font-bold text-base tracking-wide">
+              Intervensi Strategis
+            </h4>
+          </div>
+          <ul
+            class="text-slate-400 text-[15px] leading-relaxed space-y-3 flex-grow"
+          >
+            {% if prediction_result < 4 %}
+            <li class="flex items-start gap-2">
+              <span class="{{ text_accent }} mt-1.5">•</span>
+              <span
+                >Lanjutkan pola penggunaan saat ini untuk menjaga kesehatan
+                mental.</span
+              >
+            </li>
+            {% elif prediction_result < 7 %}
+            <li class="flex items-start gap-2">
+              <span class="{{ text_accent }} mt-1.5">•</span>
+              <span
+                >Lakukan puasa dopamin singkat (Digital Detox) di akhir
+                pekan.</span
+              >
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="{{ text_accent }} mt-1.5">•</span>
+              <span
+                >Gunakan teknik *time-blocking* untuk mengakses {{
+                user_data.Most_Used_Platform }}.</span
+              >
+            </li>
+            {% else %}
+            <li class="flex items-start gap-2">
+              <span class="{{ text_accent }} mt-1.5">•</span>
+              <span class="text-white font-medium"
+                >Hapus aplikasi {{ user_data.Most_Used_Platform }} sementara
+                untuk memulihkan reseptor otak.</span
+              >
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="{{ text_accent }} mt-1.5">•</span>
+              <span
+                >Prioritaskan interaksi tatap muka untuk menurunkan level
+                Kortisol Anda.</span
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-slate-800 text-center">
+        <p class="text-slate-500 text-sm mb-6 italic">
+          "Kesadaran adalah langkah pertama menuju kedaulatan digital."
+        </p>
+        <a
+          href="/#quest-form"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-white font-semibold border border-slate-700 hover:bg-slate-700 transition-all text-sm group"
+        >
+          <svg
+            class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+          Kalkulasi Ulang Profil
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block content %} {% include 'components/hero.html'
+%} {% include 'components/insights.html' %}
+
+<section id="quest-form" class="relative z-10 py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    {% if prediction_result is not none %} {% include 'components/result.html'
+    %} {% endif %} {% include 'components/form.html' %}
+  </div>
+</section>
+
+{% endblock %}
